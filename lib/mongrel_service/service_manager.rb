@@ -63,12 +63,19 @@ module ServiceManager
   private
 
   def self.sc(*args)
-    output = `sc #{args.join(' ')} 2>&1`
-    return [$?.exitstatus, output]
+    CommandLine.exec('sc', args)
   end
 
   def self.net(*args)
-    output = `net #{args.join(' ')} 2>&1`
-    return [$?.exitstatus, output]
+    CommandLine.exec('net', args)
   end
+
+  protected
+  class CommandLine
+    def self.exec(cmd, *args)
+      output = `#{cmd} #{args.join(' ')} 2>&1`
+      return [$?.exitstatus, output]
+    end
+  end
+
 end
