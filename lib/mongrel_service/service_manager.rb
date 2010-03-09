@@ -6,6 +6,13 @@ module ServiceManager
   class ServiceStruct < Struct.new(:service_name, :display_name, :binary_path_name)
   end
 
+  class CommandLine
+    def self.exec(cmd, *args)
+      output = `#{cmd} #{args.join(' ')} 2>&1`
+      return [$?.exitstatus, output]
+    end
+  end
+
   def self.create(service_name, display_name, binary_path_name)
     cmd = ['create']
     cmd << service_name
@@ -68,14 +75,6 @@ module ServiceManager
 
   def self.net(*args)
     CommandLine.exec('net', args)
-  end
-
-  protected
-  class CommandLine
-    def self.exec(cmd, *args)
-      output = `#{cmd} #{args.join(' ')} 2>&1`
-      return [$?.exitstatus, output]
-    end
   end
 
 end
