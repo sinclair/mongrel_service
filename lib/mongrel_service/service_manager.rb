@@ -70,11 +70,11 @@ module ServiceManager
   private
 
   def self.sc(*args)
-    CommandLine.exec('sc', args)
+    CommandLine.exec('sc', *args)
   end
 
   def self.net(*args)
-    CommandLine.exec('net', args)
+    CommandLine.exec('net', *args)
   end
 
 end

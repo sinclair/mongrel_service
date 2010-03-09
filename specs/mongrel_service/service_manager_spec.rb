@@ -7,7 +7,7 @@ describe ServiceManager do
 
   context '#exist?' do
     it 'should return true when the service_name is an installed service' do
-      ServiceManager::CommandLine.should_receive(:exec).once.and_return( [0, existing_service_output('installed-service')] )
+      ServiceManager::CommandLine.should_receive(:exec).once.with('sc', 'query', 'installed-service').and_return( [0, existing_service_output('installed-service')] )
       ServiceManager.exist?('installed-service').should be_true
     end
 
